@@ -6,404 +6,447 @@
 <title>Tech by Duda</title>
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #f5f7fb;
-  --text: #1f2937;
-  --primary: #7c3aed;
-  --secondary: #38bdf8;
-  --card: #ffffff;
-  --hover: #5b21b6;
-  --shadow: rgba(0,0,0,0.08);
-}
-
-@media (prefers-color-scheme: dark) {
   :root {
+    --bg: #f5f7fb;
+    --text: #1f2937;
+    --primary: #7c3aed;
+    --secondary: #38bdf8;
+    --card: #ffffff;
+    --hover: #5b21b6;
+    --shadow: rgba(0,0,0,0.08);
+  }
+  
+  body.dark-mode {
     --bg: #0f172a;
     --text: #e5e7eb;
     --card: #1e293b;
     --shadow: rgba(0,0,0,0.3);
   }
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Quicksand', sans-serif;
-}
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.7;
-  scroll-behavior: smooth;
-}
-
-/* ===== HEADER ===== */
-header {
-  min-height: 100vh;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: #fff;
-  padding: 2rem;
-  position: relative;
-  overflow: hidden;
-}
-
-header::before {
-  content: '';
-  position: absolute;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
-  background-size: 50px 50px;
-  animation: moveBackground 20s linear infinite;
-}
-
-@keyframes moveBackground {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(50px, 50px); }
-}
-
-header > * {
-  position: relative;
-  z-index: 1;
-}
-
-header h1 {
-  font-size: 3.5rem;
-  font-weight: 700;
-  animation: fadeInDown 1s ease;
-}
-
-header p {
-  font-size: 1.3rem;
-  max-width: 600px;
-  margin-top: 1rem;
-  opacity: 0.95;
-  animation: fadeInUp 1s ease 0.2s both;
-}
-
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-30px);
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  
+  body {
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    scroll-behavior: smooth;
+    transition: background 0.3s ease, color 0.3s ease;
   }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
+  
+  /* ===== THEME TOGGLE ===== */
+  .theme-toggle {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    z-index: 1000;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 50px;
+    padding: 0.8rem 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #fff;
+    font-weight: 600;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  
+  .theme-toggle:hover {
+    background: rgba(255,255,255,0.3);
+    transform: scale(1.05);
   }
-}
-
-nav {
-  margin-top: 2rem;
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: center;
-  animation: fadeInUp 1s ease 0.4s both;
-}
-
-nav a {
-  text-decoration: none;
-  padding: 0.8rem 1.8rem;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.2);
-  color: #fff;
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
-}
-
-nav a:hover {
-  background: #fff;
-  color: var(--primary);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-}
-
-.scroll-indicator {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  animation: bounce 2s infinite;
-}
-
-.scroll-indicator::before {
-  content: '↓';
-  font-size: 2rem;
-  color: rgba(255,255,255,0.7);
-}
-
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateX(-50%) translateY(0);
+  
+  body.dark-mode .theme-toggle {
+    background: rgba(30,41,59,0.8);
+    border-color: rgba(124,58,237,0.5);
   }
-  40% {
-    transform: translateX(-50%) translateY(-10px);
+  
+  .theme-toggle .icon {
+    font-size: 1.3rem;
+    transition: transform 0.3s ease;
   }
-  60% {
-    transform: translateX(-50%) translateY(-5px);
+  
+  .theme-toggle:hover .icon {
+    transform: rotate(20deg);
   }
-}
-
-/* ===== SECTIONS ===== */
-section {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 4rem 2rem;
-}
-
-h2 {
-  font-size: 2.5rem;
-  margin-bottom: 1.5rem;
-  color: var(--primary);
-  position: relative;
-  display: inline-block;
-}
-
-h2::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 0;
-  width: 60px;
-  height: 4px;
-  background: var(--secondary);
-  border-radius: 2px;
-}
-
-/* ===== SOBRE ===== */
-.about-content {
-  background: var(--card);
-  padding: 2.5rem;
-  border-radius: 24px;
-  box-shadow: 0 20px 50px var(--shadow);
-  margin-top: 2rem;
-}
-
-.about-content p {
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
-}
-
-/* ===== HOME/GALERIA ===== */
-.home-section {
-  background: var(--card);
-  border-radius: 24px;
-  box-shadow: 0 30px 60px var(--shadow);
-  text-align: center;
-  padding: 3rem 2rem;
-}
-
-.home-section h3 {
-  margin-top: 2.5rem;
-  margin-bottom: 1rem;
-  color: var(--secondary);
-  font-size: 1.8rem;
-}
-
-.home-section p {
-  max-width: 800px;
-  margin: 0 auto 2rem;
-  font-size: 1.1rem;
-}
-
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
-}
-
-.gallery img {
-  width: 100%;
-  height: 240px;
-  object-fit: cover;
-  border-radius: 20px;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-  cursor: pointer;
-}
-
-.gallery img:hover {
-  transform: scale(1.05) rotate(2deg);
-  box-shadow: 0 20px 45px rgba(124,58,237,0.5);
-}
-
-/* ===== PROJETOS ===== */
-.projects {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-.project-card {
-  background: var(--card);
-  padding: 2rem;
-  border-radius: 20px;
-  box-shadow: 0 15px 40px var(--shadow);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 2px solid transparent;
-}
-
-.project-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 25px 60px var(--shadow);
-  border-color: var(--primary);
-}
-
-.project-card h3 {
-  color: var(--primary);
-  margin-bottom: 1rem;
-  font-size: 1.4rem;
-}
-
-.project-card p {
-  color: var(--text);
-  opacity: 0.8;
-  margin-bottom: 1rem;
-  min-height: 60px;
-}
-
-.project-card a {
-  display: inline-block;
-  margin-top: 1rem;
-  padding: 0.6rem 1.5rem;
-  background: var(--primary);
-  color: #fff;
-  font-weight: 600;
-  text-decoration: none;
-  border-radius: 999px;
-  transition: all 0.3s ease;
-}
-
-.project-card a:hover {
-  background: var(--hover);
-  transform: scale(1.05);
-}
-
-/* ===== SKILLS ===== */
-.skills {
-  margin-top: 2rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1.5rem;
-}
-
-.skill-item {
-  background: var(--card);
-  padding: 1.5rem;
-  border-radius: 16px;
-  text-align: center;
-  box-shadow: 0 10px 30px var(--shadow);
-  transition: transform 0.3s ease;
-}
-
-.skill-item:hover {
-  transform: translateY(-5px);
-}
-
-.skill-item::before {
-  content: '⚡';
-  font-size: 2.5rem;
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-/* ===== CONTATO ===== */
-.contact {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-  max-width: 350px;
-  margin-top: 2rem;
-}
-
-.contact a {
-  text-align: center;
-  padding: 1rem 1.5rem;
-  border-radius: 16px;
-  background: var(--primary);
-  color: #fff;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  font-weight: 600;
-  font-size: 1.1rem;
-}
-
-.contact a:hover {
-  background: var(--hover);
-  transform: translateX(10px);
-  box-shadow: 0 10px 30px rgba(124,58,237,0.4);
-}
-
-/* ===== FOOTER ===== */
-footer {
-  background: var(--card);
-  padding: 2rem;
-  text-align: center;
-  margin-top: 4rem;
-  border-top: 3px solid var(--primary);
-}
-
-footer p {
-  opacity: 0.7;
-}
-
-/* ===== LOADING ===== */
-.loading {
-  text-align: center;
-  padding: 2rem;
-  color: var(--primary);
-  font-size: 1.2rem;
-}
-
-/* ===== RESPONSIVO ===== */
-@media (max-width: 768px) {
+  
+  /* ===== HEADER ===== */
+  header {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  header::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: moveBackground 20s linear infinite;
+  }
+  
+  @keyframes moveBackground {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(50px, 50px); }
+  }
+  
+  header > * {
+    position: relative;
+    z-index: 1;
+  }
+  
   header h1 {
-    font-size: 2.5rem;
+    font-size: 3.5rem;
+    font-weight: 700;
+    animation: fadeInDown 1s ease;
   }
-
+  
   header p {
+    font-size: 1.3rem;
+    max-width: 600px;
+    margin-top: 1rem;
+    opacity: 0.95;
+    animation: fadeInUp 1s ease 0.2s both;
+  }
+  
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  nav {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeInUp 1s ease 0.4s both;
+  }
+  
+  nav a {
+    text-decoration: none;
+    padding: 0.8rem 1.8rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+  }
+  
+  nav a:hover {
+    background: #fff;
+    color: var(--primary);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  }
+  
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: bounce 2s infinite;
+  }
+  
+  .scroll-indicator::before {
+    content: '↓';
+    font-size: 2rem;
+    color: rgba(255,255,255,0.7);
+  }
+  
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateX(-50%) translateY(0);
+    }
+    40% {
+      transform: translateX(-50%) translateY(-10px);
+    }
+    60% {
+      transform: translateX(-50%) translateY(-5px);
+    }
+  }
+  
+  /* ===== SECTIONS ===== */
+  section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+  
+  h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary);
+    position: relative;
+    display: inline-block;
+  }
+  
+  h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: var(--secondary);
+    border-radius: 2px;
+  }
+  
+  /* ===== SOBRE ===== */
+  .about-content {
+    background: var(--card);
+    padding: 2.5rem;
+    border-radius: 24px;
+    box-shadow: 0 20px 50px var(--shadow);
+    margin-top: 2rem;
+  }
+  
+  .about-content p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* ===== HOME/GALERIA ===== */
+  .home-section {
+    background: var(--card);
+    border-radius: 24px;
+    box-shadow: 0 30px 60px var(--shadow);
+    text-align: center;
+    padding: 3rem 2rem;
+  }
+  
+  .home-section h3 {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--secondary);
+    font-size: 1.8rem;
+  }
+  
+  .home-section p {
+    max-width: 800px;
+    margin: 0 auto 2rem;
     font-size: 1.1rem;
   }
-
-  h2 {
-    font-size: 2rem;
-  }
-
+  
   .gallery {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
   }
-
+  
   .gallery img {
-    height: 180px;
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 20px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    cursor: pointer;
   }
-}
-</style>
+  
+  .gallery img:hover {
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 0 20px 45px rgba(124,58,237,0.5);
+  }
+  
+  /* ===== PROJETOS ===== */
+  .projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  
+  .project-card {
+    background: var(--card);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid transparent;
+  }
+  
+  .project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 60px var(--shadow);
+    border-color: var(--primary);
+  }
+  
+  .project-card h3 {
+    color: var(--primary);
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+  }
+  
+  .project-card p {
+    color: var(--text);
+    opacity: 0.8;
+    margin-bottom: 1rem;
+    min-height: 60px;
+  }
+  
+  .project-card a {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.6rem 1.5rem;
+    background: var(--primary);
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 999px;
+    transition: all 0.3s ease;
+  }
+  
+  .project-card a:hover {
+    background: var(--hover);
+    transform: scale(1.05);
+  }
+  
+  /* ===== SKILLS ===== */
+  .skills {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .skill-item {
+    background: var(--card);
+    padding: 1.5rem;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 10px 30px var(--shadow);
+    transition: transform 0.3s ease;
+  }
+  
+  .skill-item:hover {
+    transform: translateY(-5px);
+  }
+  
+  .skill-item::before {
+    content: '⚡';
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* ===== CONTATO ===== */
+  .contact {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    max-width: 350px;
+    margin-top: 2rem;
+  }
+  
+  .contact a {
+    text-align: center;
+    padding: 1rem 1.5rem;
+    border-radius: 16px;
+    background: var(--primary);
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+  
+  .contact a:hover {
+    background: var(--hover);
+    transform: translateX(10px);
+    box-shadow: 0 10px 30px rgba(124,58,237,0.4);
+  }
+  
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--card);
+    padding: 2rem;
+    text-align: center;
+    margin-top: 4rem;
+    border-top: 3px solid var(--primary);
+  }
+  
+  footer p {
+    opacity: 0.7;
+  }
+  
+  /* ===== LOADING ===== */
+  .loading {
+    text-align: center;
+    padding: 2rem;
+    color: var(--primary);
+    font-size: 1.2rem;
+  }
+  
+  /* ===== RESPONSIVO ===== */
+  @media (max-width: 768px) {
+    header h1 {
+      font-size: 2.5rem;
+    }
+  
+    header p {
+      font-size: 1.1rem;
+    }
+  
+    h2 {
+      font-size: 2rem;
+    }
+  
+    .gallery {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+  
+    .gallery img {
+      height: 180px;
+    }
+  }
+  </style>
 </head>
 
 <body>
 
 <header>
+  <button class="theme-toggle" id="themeToggle">
+    <span class="icon">🌙</span>
+    <span class="text">Escuro</span>
+  </button>
+
   <h1>Tech by Duda</h1>
   <p>Criando soluções com criatividade, código e coragem.</p>
 
@@ -422,15 +465,19 @@ footer p {
   <h2>Sobre mim</h2>
   <div class="about-content">
     <p>
-      Sou <strong>Maria Eduarda</strong> — ou só Duda. Curiosa por natureza, programadora por paixão
-      e criativa por essência.
+      Sou <strong>Maria Eduarda</strong> — criadora da Tech by Duda — um projeto que nasceu da curiosidade, da criatividade e da vontade de usar
+      a tecnologia para resolver problemas reais.
     </p>
     <p>
-      Aqui você encontra tecnologia com identidade. Cada projeto é uma oportunidade de aprender,
-      criar e transformar desafios em soluções digitais que fazem a diferença.
+      Atuo no desenvolvimento de soluções digitais, automação de atendimentos e integração com WhatsApp Business, criando sistemas inteligentes, funcionais e pensados 
+      para facilitar processos e gerar resultados. Tenho formação técnica em Desenvolvimento de Sistemas e 
+      estou em constante evolução na área de Computação, segurança da informação e inovação tecnológica.
+    </p>
+    <p>Mais do que programar, gosto de entender pessoas, negócios e ideias. Cada projeto é desenvolvido 
+      com estratégia, identidade e propósito, unindo lógica, design e usabilidade. Acredito que tecnologia não deve ser complicada, e sim acessível, eficiente e transformadora.
     </p>
     <p>
-      Seja bem-vindo ao meu espaço digital! ✨
+      A <strong>Tech by Duda</strong> representa exatamente isso: tecnologia feita com visão, sensibilidade e impacto.
     </p>
   </div>
 </section>
@@ -480,7 +527,7 @@ footer p {
   <div class="contact">
     <a href="https://wa.me/5534999960381" target="_blank">📱 WhatsApp</a>
     <a href="mailto:mariaeduarda@email.com">📧 E-mail</a>
-    <a href="https://linkedin.com/in/mariaeduardacampos20" target="_blank">💼 LinkedIn</a>
+    <a href="https://www.linkedin.com/in/maria-eduardameoc" target="_blank">💼 LinkedIn</a>
     <a href="https://github.com/MariaEduardaCampos20" target="_blank">💻 GitHub</a>
   </div>
 </section>
@@ -490,6 +537,35 @@ footer p {
 </footer>
 
 <script>
+const themeToggle = document.getElementById('themeToggle');
+const body = document.body;
+const icon = themeToggle.querySelector('.icon');
+const text = themeToggle.querySelector('.text');
+
+// Verifica se há tema salvo no localStorage
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'dark') {
+  body.classList.add('dark-mode');
+  icon.textContent = '☀️';
+  text.textContent = 'Claro';
+}
+
+// Função para alternar tema
+themeToggle.addEventListener('click', () => {
+  body.classList.toggle('dark-mode');
+  
+  if (body.classList.contains('dark-mode')) {
+    icon.textContent = '☀️';
+    text.textContent = 'Claro';
+    localStorage.setItem('theme', 'dark');
+  } else {
+    icon.textContent = '🌙';
+    text.textContent = 'Escuro';
+    localStorage.setItem('theme', 'light');
+  }
+});
+
+// GitHub Projects
 fetch("https://api.github.com/users/MariaEduardaCampos20/repos")
   .then(res => res.json())
   .then(data => {
